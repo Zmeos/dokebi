@@ -2,9 +2,10 @@
 ###################
 *.pyc
 
-# Logs #
+# Logs, temp and lock files#
 *.log
 *.swp
+*.pid
 
 # Virtual env #
 venv/
