@@ -22,7 +22,7 @@ def current_workspace():
 def format_time(s):
     m, s = divmod(s, 60)
     h, m = divmod(m, 60)
-    return "%d h %d min %d sec" % (h, m, s)
+    return "%d h %2d min %2d sec" % (h, m, s)
 
 def init_log():
     """
@@ -36,7 +36,7 @@ def init_log():
 
 def tabulate_log(log=get_log(init_log)):
     table = [[item[0], format_time(item[1])] for item in log.items() if item[0] != 'Total']
-    table.append(['------', '----------------'])
+    table.append(['------', '-------------------'])
     table.append(['Total', format_time(log['Total'])])
     return tabulate(table, headers=['Workspace', 'Time'], tablefmt='simple')
 
