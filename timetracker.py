@@ -1,4 +1,4 @@
-from time import sleep
+from time import sleep, strftime
 from storage import get_log, save_log
 from tabulate import tabulate
 from subprocess import Popen, PIPE
@@ -25,6 +25,9 @@ def format_time(s):
     return "%d h %d min %d sec" % (h, m, s)
 
 def init_log():
+    """
+    return: dict[str, int]
+    """
     log = {}
     for name in workspace_names:
         log[name] = 0
@@ -37,12 +40,16 @@ def tabulate_log(log=get_log(init_log)):
     table.append(['Total', format_time(log['Total'])])
     return tabulate(table, headers=['Workspace', 'Time'], tablefmt='simple')
 
-def do_logging():
+def do_logging(step=30):
+    """
+    step: The time step between logging of state in seconds
+    """
     log = get_log(init_log)
     while True:
-        sleep(1)
-        log[current_workspace()] += 1 
-        log['Total'] += 1
-        #Save to disk every 10th second
-        if log['Total'] % 10 == 0:
-            save_log(log)
+        start = int(strftime('%s'))
+        sleep(step)
+        end = int(strftime('%s'))
+        span = end-start
+        log[current_workspace()] += span
+        log['Total'] += span
+        save_log(log)
