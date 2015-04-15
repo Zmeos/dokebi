@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+import runner
+from timetracker import do_logging
+
+class dokebi():
+    
+    def __init__(self):
+        self.stdin_path = '/dev/null'
+        self.stdout_path = '/dev/tty'
+        self.stderr_path = '/dev/tty'
+        self.pidfile_path =  '/var/run/dokebi/dokebi.pid'
+        self.pidfile_timeout = 5
+            
+    def run(self):
+        do_logging()
+
+app = dokebi()
+daemon_runner = runner.DaemonRunner(app)
+daemon_runner.do_action()
