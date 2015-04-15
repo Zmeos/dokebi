@@ -3,16 +3,16 @@ Simple workspace time tracking
 
 A simple commandline tool for logging time spend in different workspaces on a linux system. Based on the PEP3143 "Standard daemon process library" of python. The runner.py file is taken from this library and modified.
 
-After adding dokebi to your path:
-To start the daemon
+After adding dokebi to your path.
+Start the daemon:
 ```
 dokebi start
 ```
-Show a table of your workspaces and the time you spend in them
+Show a table of your workspaces and the time you spend in them:
 ```
 dokebi show
 ```
-Stop the daemon
+Stop the daemon:
 ```
 dokebi stop
 ```
