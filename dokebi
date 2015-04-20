@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sys
-from os.path import dirname, realpath, join
+from os.path import dirname, realpath, join, isfile
 
 from daemon import runner
 from timetracker import do_logging, tabulate_log
@@ -13,8 +13,7 @@ class Dokebi(object):
             basedir = sys._MEIPASS
         else:
             # we are running in a normal Python environment
-            basedir = dirname(realpath(__file__))
-        print basedir
+            basedir = dirname(__file__)
         self.stdin_path = '/dev/null'
         self.stdout_path = '/dev/tty'
         self.stderr_path = '/dev/tty'
@@ -28,9 +27,17 @@ class DokebiRunner(runner.DaemonRunner):
     def _show(self):
         print tabulate_log()
 
+    def _status(self):
+        if isfile(self.app.pidfile_path):
+            print "Running"
+        else:
+            print "Not running"
+
     runner.DaemonRunner.action_funcs['show'] = _show
+    runner.DaemonRunner.action_funcs['status'] = _status
 
     def __init__(self, app):
+        self.app = app
         super(DokebiRunner, self).__init__(app)
 
 app = Dokebi()

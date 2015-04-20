@@ -25,9 +25,6 @@ def format_time(s):
     return "%d h %2d min %2d sec" % (h, m, s)
 
 def init_log():
-    """
-    return: dict[str, int]
-    """
     log = {}
     for name in workspace_names:
         log[name] = 0
@@ -40,9 +37,9 @@ def tabulate_log(log=get_log(init_log)):
     table.append(['Total', format_time(log['Total'])])
     return tabulate(table, headers=['Workspace', 'Time'], tablefmt='simple')
 
-def do_logging(step=30):
+def do_logging(step=1):
     """
-    step: The time step between logging of state in seconds
+    step: The time step between logging of state in seconds, default: log once a second
     """
     log = get_log(init_log)
     while True:
