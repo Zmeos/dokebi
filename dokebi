@@ -1,21 +1,38 @@
 #!/usr/bin/env python
-import os
+import sys
+from os.path import dirname, realpath, join
 
-import runner
-from timetracker import do_logging
+from daemon import runner
+from timetracker import do_logging, tabulate_log
 
-class dokebi():
-    
+class Dokebi(object):
     def __init__(self):
+        #Pyinstaller
+        if getattr(sys, 'frozen', False):
+            # we are running in a |PyInstaller| bundle
+            basedir = sys._MEIPASS
+        else:
+            # we are running in a normal Python environment
+            basedir = dirname(realpath(__file__))
+        print basedir
         self.stdin_path = '/dev/null'
         self.stdout_path = '/dev/tty'
         self.stderr_path = '/dev/tty'
-        self.pidfile_path =  os.path.dirname(os.path.realpath(__file__)) + '/dokebi.pid'
+        self.pidfile_path = join(basedir, 'dokebi.pid')
         self.pidfile_timeout = 5
             
     def run(self):
         do_logging()
 
-app = dokebi()
-daemon_runner = runner.DaemonRunner(app)
-daemon_runner.do_action()
+class DokebiRunner(runner.DaemonRunner):
+    def _show(self):
+        print tabulate_log()
+
+    runner.DaemonRunner.action_funcs['show'] = _show
+
+    def __init__(self, app):
+        super(DokebiRunner, self).__init__(app)
+
+app = Dokebi()
+dokebi_runner = DokebiRunner(app)
+dokebi_runner.do_action()
