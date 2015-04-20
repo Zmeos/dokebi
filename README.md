@@ -12,6 +12,10 @@ Show a table of your workspaces and the time you spend in them:
 ```
 dokebi show
 ```
+Print 'Running' if dokebi is running, prints 'Not running' otherwise
+```
+dokebi status
+```
 Stop the daemon:
 ```
 dokebi stop
