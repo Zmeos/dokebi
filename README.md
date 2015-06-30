@@ -1,5 +1,5 @@
 # Dokebi
-Simple workspace time tracking
+Course grained time tracking. Track the time spend in workspaces
 
 A simple commandline tool for logging time spend in different workspaces on a linux system. Based on the PEP3143 "Standard daemon process library" of python.
 
