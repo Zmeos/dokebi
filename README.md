@@ -21,4 +21,4 @@ Stop the daemon:
 dokebi stop
 ```
 
-Dokebis is little mischievous monsters living in Korean forests. They can be nice, or they can try to trick you. If this one isn't behaving please let me know.
+Dokebis are little mischievous monsters living in Korean forests. They can be nice, or they can try to trick you. If this one isn't behaving please let me know.
